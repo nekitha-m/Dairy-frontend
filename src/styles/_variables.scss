@@ -1,0 +1,34 @@
+// Design tokens — sourced from the ASP.NET MVC app's palette (Content/Site.css, Views/Shared/_Layout.cshtml)
+// so the React frontend reads as the same product.
+
+$color-primary: #2f85c4; // navbar / header blue used throughout the MVC views
+$color-primary-dark: #256a9e;
+$color-primary-light: #eaf3fa;
+
+$color-text: #333333;
+$color-text-muted: #6c757d;
+$color-white: #ffffff;
+
+$color-danger: #b94a48;
+$color-danger-dark: #96302f;
+$color-danger-bg: #f2dede;
+$color-orange: #f0800c;
+$color-success: #3c763d;
+$color-success-bg: #dff0d8;
+
+$color-border: #dddddd;
+$color-table-stripe: #f9f9f9;
+$color-table-hover: #f0f7fc;
+
+$font-family-base: "Segoe UI", Helvetica, Arial, sans-serif;
+$font-size-base: 14px;
+$font-size-h2: 28px;
+
+$spacing-unit: 8px;
+$radius-base: 4px;
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+
+$navbar-height: 50px;

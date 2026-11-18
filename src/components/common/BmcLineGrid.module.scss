@@ -1,0 +1,90 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.wrap {
+  grid-column: 1 / -1;
+  margin: 8px 0 20px;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: $color-text;
+}
+
+.entryRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: $color-primary-light;
+  border: 1px solid $color-border;
+  border-radius: $radius-base;
+}
+
+.input {
+  flex: 1 1 100px;
+  min-width: 90px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr)) 60px;
+  border: 1px solid $color-border;
+  border-radius: $radius-base;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.headerCell {
+  background: $color-primary;
+  color: $color-white;
+  font-weight: 600;
+  padding: 8px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-left: 1px solid rgba($color-white, 0.25);
+}
+
+.headerGroup {
+  @extend .headerCell;
+  border-bottom: 1px solid rgba($color-white, 0.25);
+}
+
+.cell {
+  padding: 8px 6px;
+  border-top: 1px solid $color-border;
+  background: $color-white;
+  display: flex;
+  align-items: center;
+}
+
+.footerCell {
+  padding: 8px 6px;
+  border-top: 2px solid $color-border;
+  background: $color-primary-light;
+  font-weight: 600;
+}
+
+.removeButton {
+  border: none;
+  background: none;
+  color: $color-danger;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  padding: 16px;
+  text-align: center;
+  color: $color-text-muted;
+  background: $color-white;
+  border-top: 1px solid $color-border;
+}

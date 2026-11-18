@@ -1,0 +1,48 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.button {
+  @include button-base;
+}
+
+.primary {
+  background: $color-primary;
+  border-color: $color-primary;
+  color: $color-white;
+
+  &:hover {
+    background: $color-primary-dark;
+    border-color: $color-primary-dark;
+  }
+}
+
+.secondary {
+  background: $color-white;
+  border-color: #ccc;
+  color: $color-text;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+}
+
+.danger {
+  background: $color-white;
+  border-color: $color-danger;
+  color: $color-danger;
+
+  &:hover {
+    background: $color-danger;
+    color: $color-white;
+  }
+}
+
+.small {
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+.large {
+  padding: 9px 24px;
+  font-size: 16px;
+}

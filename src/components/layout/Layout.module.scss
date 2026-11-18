@@ -1,0 +1,6 @@
+@use '../../styles/variables' as *;
+
+.body {
+  padding-top: $navbar-height + 20px;
+  padding-bottom: 40px;
+}

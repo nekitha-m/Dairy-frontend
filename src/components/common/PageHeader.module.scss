@@ -1,0 +1,25 @@
+// The title sits centered on its own row; the action (search/button) sits on
+// a second row underneath, right-aligned.
+.header {
+  margin-top: 8px;
+}
+
+.title {
+  text-align: center;
+}
+
+.action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.actionGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search {
+  width: 220px;
+}

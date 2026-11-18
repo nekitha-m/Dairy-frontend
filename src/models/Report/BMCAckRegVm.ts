@@ -1,0 +1,43 @@
+// Mirrors Dairy.Report.Api's BMCAckRegVmDto (GET /api/Report/GetBmcWiseAck).
+export interface BMCAckRegVm {
+  despatchDate?: string;
+  bmcCode?: string;
+  bmcName?: string;
+  fLitre?: number;
+  fFat?: number;
+  fSnf?: number;
+  mLitre?: number;
+  mFat?: number;
+  mSnf?: number;
+  rLitre?: number;
+  rFat?: number;
+  rSnf?: number;
+  fMbrt?: number;
+  mMbrt?: number;
+  rMbrt?: number;
+  afLitre?: number;
+  afFat?: number;
+  afSnf?: number;
+  amLitre?: number;
+  amFat?: number;
+  amSnf?: number;
+  arLitre?: number;
+  arFat?: number;
+  arSnf?: number;
+  tankerNo?: string;
+  invoiceNo?: string;
+  kg?: number;
+  gravity?: number;
+  fLitFat?: number;
+  fLitSnf?: number;
+  mLitFat?: number;
+  mLitSnf?: number;
+  rLitFat?: number;
+  rLitSnf?: number;
+  afLitFat?: number;
+  afLitSnf?: number;
+  amLitFat?: number;
+  amLitSnf?: number;
+  arLitFat?: number;
+  arLitSnf?: number;
+}

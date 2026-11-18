@@ -1,0 +1,71 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.card {
+  @include card;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  background: $color-primary-light;
+}
+
+.title {
+  text-align: center;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  label {
+    margin: 0;
+  }
+
+  input {
+    width: auto;
+  }
+}
+
+.submit {
+  width: 100%;
+  justify-content: center;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+
+  button {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+.footerLink {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.error {
+  color: $color-danger;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.fieldError {
+  color: $color-danger;
+  font-size: 13px;
+  margin-top: 4px;
+}

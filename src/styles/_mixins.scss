@@ -1,0 +1,35 @@
+@use "variables" as *;
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin card {
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-base;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: $font-size-base;
+  border-radius: $radius-base;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}

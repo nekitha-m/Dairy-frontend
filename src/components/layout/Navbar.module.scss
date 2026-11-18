@@ -1,0 +1,130 @@
+@use '../../styles/variables' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $navbar-height;
+  background: $color-primary;
+  color: $color-white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 700;
+  color: $color-white;
+  margin-right: 32px;
+  cursor: default;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+.navItem {
+  position: relative;
+
+  &:hover .dropdownMenu:not(.closed) {
+    display: block;
+  }
+}
+
+.navLink {
+  display: block;
+  padding: 15px 12px;
+  color: $color-white;
+  cursor: pointer;
+  font-size: 15px;
+
+  &:hover {
+    background: $color-primary-dark;
+    text-decoration: none;
+  }
+}
+
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: $navbar-height;
+  left: 0;
+  min-width: 220px;
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: 0 0 $radius-base $radius-base;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 4px 0;
+  list-style: none;
+  margin: 0;
+  max-height: min(540px, calc(100vh - #{$navbar-height} - 16px));
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #b5b5b5;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  li a {
+    display: block;
+    padding: 5px 16px;
+    color: $color-text;
+    font-size: 14px;
+    white-space: nowrap;
+
+    &:hover {
+      background: $color-primary-light;
+      text-decoration: none;
+    }
+  }
+}
+
+.closed {
+  display: none;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.userArea {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.userName {
+  color: $color-white;
+}
+
+.logout {
+  color: $color-white;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 14px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

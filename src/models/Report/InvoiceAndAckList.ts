@@ -1,0 +1,45 @@
+// Mirrors Dairy.Report.Api's InvoiceAndAckListDto (GET /api/Report/GetInvoiceandAckList).
+export interface InvoiceAndAckList {
+  bmcCode?: number;
+  bmcName?: string;
+  despatchMainId?: number;
+  despatchDate?: string;
+  tankerId?: string;
+  invoiceNumber?: string;
+  despatchToId?: number;
+  destinationName?: string;
+  fLitre?: number;
+  mLitre?: number;
+  rLitre?: number;
+  fFat?: number;
+  mFat?: number;
+  rFat?: number;
+  fSnf?: number;
+  mSnf?: number;
+  rSnf?: number;
+  fLitFat?: number;
+  mLitFat?: number;
+  rLitFat?: number;
+  fLitSnf?: number;
+  mLitSnf?: number;
+  rLitSnf?: number;
+  afLitre?: number;
+  amLitre?: number;
+  arLitre?: number;
+  afFat?: number;
+  amFat?: number;
+  arFat?: number;
+  afSnf?: number;
+  amSnf?: number;
+  arSnf?: number;
+  afLitFat?: number;
+  amLitFat?: number;
+  arLitFat?: number;
+  afLitSnf?: number;
+  amLitSnf?: number;
+  arLitSnf?: number;
+  gravity?: number;
+  fMbrt?: number;
+  mMbrt?: number;
+  rMbrt?: number;
+}

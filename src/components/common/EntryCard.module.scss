@@ -1,0 +1,73 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.card {
+  @include card;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px 32px;
+  background: $color-primary-light;
+}
+
+.wide {
+  max-width: 900px;
+}
+
+.field {
+  position: relative;
+  margin-bottom: 16px;
+  // Reserve room for the validation message so it appearing on blur doesn't shift
+  // the layout (which would move the Save button and swallow the click).
+  padding-bottom: 20px;
+
+  > div:global(.field-error) {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-top: 0;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  @include md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  grid-column: 1 / -1;
+}
+
+.message {
+  color: $color-danger;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.checkboxField {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  label {
+    margin: 0;
+  }
+
+  input {
+    width: auto;
+  }
+}
