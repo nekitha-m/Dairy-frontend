@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { AUTH_STORAGE_KEY } from '../context/AuthContext'
 
-// Master, Transaction and Report modules are all served by one API.
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://192.168.0.17:8060/api'
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://dairywebapi-production.up.railway.app/api'
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
