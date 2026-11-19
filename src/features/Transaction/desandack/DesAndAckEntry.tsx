@@ -5,6 +5,8 @@ import { PageHeader } from '../../../components/common/PageHeader'
 import { InputField } from '../../../components/form/input-field.component'
 import { SelectField } from '../../../core/select-field-component'
 import { FormikModel, SubmitStatus } from '../../../core/formik-drawer-component'
+import { Button } from '../../../components/common/Button'
+import { ArrowLeft } from 'lucide-react'
 import { BmcLineGrid } from '../../../components/common/BmcLineGrid'
 import { useGetDesAndAckById } from '../../../apiclient/transaction/use-get-desandack-by-id'
 import { useGetDespatchLines } from '../../../apiclient/transaction/use-get-despatch-lines'
@@ -587,6 +589,14 @@ const DesAndAckEntry: React.FC<DesAndAckEditProps> = ({ ...props }) => {
             }}
           >
             <InputField label="Tanker No" name="tankerNumber" maxLength={20} />
+          </div>
+
+          {/* ms-auto pushes Back to the right edge; the top padding lines it up with the input row below the labels */}
+          <div className="col-auto ms-auto" style={{ paddingTop: 24 }}>
+            <Button type="button" variant="primary" style={{ height: 34 }} onClick={() => onClose?.(SubmitStatus.Cancelled)}>
+              <ArrowLeft size={16} style={{ marginRight: 6, verticalAlign: 'text-bottom' }} />
+              Back
+            </Button>
           </div>
 
          {/*  <div className="col-md-2">

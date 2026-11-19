@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { RefreshCw } from 'lucide-react'
 import { PageHeader } from '../../../components/common/PageHeader'
 import { Button } from '../../../components/common/Button'
 import { DataGrid } from '../../../components/common/DataGrid'
@@ -10,14 +13,17 @@ import Acknowledgement from '../../../models/Transaction/Acknowledgement'
 import DesAndAck from '../../../models/Transaction/DesAndAck'
 import DesAndAckEntry from './DesAndAckEntry'
 import headerStyles from '../../../components/common/PageHeader.module.scss'
-import { toDateInputValue, toDdMmYyyy } from '../../../core/date-utils'
+import { formatLocalDate, toDateInputValue, toDdMmYyyy } from '../../../core/date-utils'
 
 const ACTION_SIZE = { height: 40, width: 320 }
+const SEARCH_WIDTH = 200
 
 export function DesAndAckListPage() {
-  const [shouldFetch, setShouldFetch] = useState(false)
-  const { data: rows, refetch } = useGetAcknowledgements({
-    enabled: shouldFetch,
+  const [selectedDate, setSelectedDate] = useState<Date | null>(() => new Date())
+  // The list loads for today first, then only for the date that was applied with the Get button.
+  const [despatchDate, setDespatchDate] = useState(() => formatLocalDate(new Date()))
+  const { data: rows, refetch, isFetching } = useGetAcknowledgements({
+    variables: { despatchDate },
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   })
@@ -26,41 +32,39 @@ export function DesAndAckListPage() {
   const [selectedRow, setSelectedRow] = useState<Acknowledgement | null>(null)
   const [deleteDesAndAckData, setDeleteDesAndAckData] = useState<DeletePostDataInfo | null>(null)
   const [searchValue, setSearchValue] = useState('')
-  const [filteredRows, setFilteredRows] = useState<Acknowledgement[]>([])
-  const searchQueryRef = useRef('')
 
-  useEffect(() => {
-    setShouldFetch(true)
-  }, [])
+  const filteredRows = useMemo(() => {
+    const term = searchValue.toLowerCase()
+    if (!term) return rows || []
 
-  const handleSearch = useCallback(
-    (searchTerm: string) => {
-      searchQueryRef.current = searchTerm
-      setSearchValue(searchTerm)
+    return (rows || []).filter((item) =>
+      Object.values(item).some((value) => value && value.toString().toLowerCase().includes(term))
+    )
+  }, [rows, searchValue])
 
-      const filteredList = rows?.filter((item) =>
-        Object.values(item).some(
-          (value) => value && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      )
+  const handleSearch = (searchTerm: string) => setSearchValue(searchTerm)
 
-      setFilteredRows(filteredList || [])
-    },
-    [rows]
-  )
+  const clearSearch = () => setSearchValue('')
 
-  useEffect(() => {
-    if (searchQueryRef.current) {
-      handleSearch(searchQueryRef.current)
+  const handleGet = () => {
+    const date = formatLocalDate(selectedDate ?? new Date())
+    if (date === despatchDate) {
+      refetch()
     } else {
-      setFilteredRows(rows || [])
+      setDespatchDate(date)
     }
-  }, [rows, handleSearch])
+  }
 
-  const clearSearch = () => {
-    searchQueryRef.current = ''
+  // Back to the opening state: today's records, no search text, freshly loaded
+  const handleRefresh = () => {
+    const today = formatLocalDate(new Date())
     setSearchValue('')
-    setFilteredRows(rows || [])
+    setSelectedDate(new Date())
+    if (today === despatchDate) {
+      refetch()
+    } else {
+      setDespatchDate(today)
+    }
   }
 
   const onHandleAdd = () => setEditingDesAndAck(new DesAndAck())
@@ -106,18 +110,51 @@ export function DesAndAckListPage() {
       <PageHeader
         title="Despatch And Acknowledgement List"
         action={
-          <div className={headerStyles.actionGroup}>
-            <input
-              className={headerStyles.search}
-              style={ACTION_SIZE}
-              type="text"
-              placeholder="Search..."
-              value={searchValue}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
-            <Button large style={ACTION_SIZE} onClick={onHandleAdd}>
-              + New Despatch &amp; Acknowledgement
-            </Button>
+          <div className={headerStyles.actionGroup} style={{ alignItems: 'flex-end', justifyContent: 'space-between', width: '100%' }}>
+            <div className={headerStyles.actionGroup} style={{ alignItems: 'flex-end' }}>
+              <div>
+                <label htmlFor="despatchDate" style={{ display: 'block', marginBottom: '5px', fontWeight: 500 }}>
+                  Date
+                </label>
+                <DatePicker
+                  id="despatchDate"
+                  className={headerStyles.search}
+                  customInput={<input style={{ height: ACTION_SIZE.height, boxSizing: 'border-box' }} />}
+                  selected={selectedDate}
+                  placeholderText="Select Date"
+                  dateFormat="dd-MM-yyyy"
+                  popperPlacement="bottom-start"
+                  portalId="root-portal"
+                  onChange={(value: Date | null) => setSelectedDate(value)}
+                />
+              </div>
+              <Button large style={{ height: ACTION_SIZE.height }} onClick={handleGet}>
+                Get
+              </Button>
+            </div>
+            <div className={headerStyles.actionGroup} style={{ alignItems: 'flex-end' }}>
+              <input
+                className={headerStyles.search}
+                style={{ ...ACTION_SIZE, width: SEARCH_WIDTH }}
+                type="text"
+                placeholder="Search..."
+                value={searchValue}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+              <Button large style={ACTION_SIZE} onClick={onHandleAdd}>
+                + New Despatch &amp; Acknowledgement
+              </Button>
+              <Button
+                large
+                type="button"
+                title="Refresh"
+                aria-label="Refresh"
+                style={{ height: ACTION_SIZE.height, width: ACTION_SIZE.height, padding: 0 }}
+                onClick={handleRefresh}
+              >
+                <RefreshCw size={18} className={isFetching ? headerStyles.spin : undefined} />
+              </Button>
+            </div>
           </div>
         }
       />

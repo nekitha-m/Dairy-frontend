@@ -2,18 +2,26 @@ import type { AxiosError } from 'axios'
 import { createQuery } from 'react-query-kit'
 import { transactionApiClient, unwrap } from '../../api/httpClient'
 import type Acknowledgement from '../../models/Transaction/Acknowledgement'
+import { formatLocalDate } from '../../core/date-utils'
 const MAX_PAGE_SIZE = 1000
 
-export const useGetAcknowledgements = createQuery<Acknowledgement[], void, AxiosError>({
+interface AcknowledgementListVariables {
+  // "YYYY-MM-DD"; the API only returns the list for one despatch date, so
+  // callers that omit it get today's.
+  despatchDate?: string
+}
+
+export const useGetAcknowledgements = createQuery<Acknowledgement[], AcknowledgementListVariables | void, AxiosError>({
   queryKey: ['keyAcknowledgementlist'],
-  fetcher: async () => {
+  fetcher: async (variables) => {
+    const despatchDate = variables?.despatchDate || formatLocalDate(new Date())
     const all: Acknowledgement[] = []
     let pageNumber = 1
 
     while (true) {
       const page = await unwrap<Acknowledgement[]>(
         transactionApiClient.get('/Acknowledgment/GetAcknowledgeList', {
-          params: { pageNumber, pageSize: MAX_PAGE_SIZE },
+          params: { despatchDate, pageNumber, pageSize: MAX_PAGE_SIZE },
         })
       )
       all.push(...page)
